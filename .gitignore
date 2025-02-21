@@ -1,0 +1,37 @@
+# GENERAL
+.idea/
+__pycache__/
+.vscode/
+*.py~
+
+# CONFIG FILES
+.env
+twitter_config.json
+
+# AGENTS
+agents/*.json
+
+# Include example agent and general config
+!agents/example.json
+!agents/general.json
+
+# macOS
+.DS_Store
+.codegpt
+node_modules
+.env
+
+# Hardhat files
+/cache
+/artifacts
+
+# TypeChain files
+/typechain
+/typechain-types
+
+# solidity-coverage files
+/coverage
+/coverage.json
+
+# Hardhat Ignition default folder for deployments against a local node
+ignition/deployments/chain-31337

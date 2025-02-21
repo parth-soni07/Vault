@@ -1,0 +1,1 @@
+'topic_id': 24, 'inference': '3.0'
