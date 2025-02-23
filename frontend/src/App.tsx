@@ -39,7 +39,10 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/success" element={<Success selected={selected} />} />
             <Route path="/select-vault" element={<VaultSelection />} />
-            <Route path="/start-trick-game" element={<StartTrickGame />} />
+            <Route
+              path="/start-trick-game"
+              element={<StartTrickGame options={results} />}
+            />
             <Route path="/join-friends" element={<JoinFriends />} />
             <Route path="/open-vault" element={<OpenVault />} />
             <Route path="/store-vault" element={<StoreVault />} />
