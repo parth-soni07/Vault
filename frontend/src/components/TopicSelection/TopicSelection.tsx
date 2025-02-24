@@ -1,7 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Dropdown } from "../Dropdown/Dropdown";
-import { Button } from "../Button/Button";
 import { AlloraTopic } from "../../utils/alloraTopics";
 
 interface TopicSelectionProps {
