@@ -1,57 +1,60 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Dices, Users, Coins } from "lucide-react";
+import { Dices} from "lucide-react";
 import { PageTransition } from "../components/PageTransition";
-import { TopicSelection } from "../components/TopicSelection/TopicSelection";
-import { TopicMap } from "../components/TopicMap/TopicMap";
-import { AlloraTopic } from "../utils/alloraTopics";
+import { getContract } from "../contract";
+import { Loading } from "../components/Loading/Loading";
+import { VaultHashModal } from "../components/Modal/VaultHashModal";
 
-interface StartTrickGameProps {
-  options: AlloraTopic[];
-}
-
-interface TopicState {
-  id: number | null;
-  name: string;
-}
-
-export const StartTrickGame: React.FC<StartTrickGameProps> = ({ options }) => {
-  const [showExtraSelections, setShowExtraSelections] = useState(false);
-  const [selectedTopics, setSelectedTopics] = useState<TopicState[]>([
-    { id: null, name: "" },
-    { id: null, name: "" },
-    { id: null, name: "" },
-    { id: null, name: "" },
-  ]);
-
-  const navigate = useNavigate();
-
+export const StartTrickGame: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [formOutput, setFormOutput] = useState("");
   const [formData, setFormData] = useState({
     vaultName: "",
-    difficulty: "easy",
     players: "2",
     vaultValue: "",
+    duration: "",
   });
-
-  const handleTopicSelection = async () => {};
-
-  const updateTopicSelection = (
-    index: number,
-    topicId: number | null,
-    topicName: string
-  ) => {
-    setSelectedTopics((prev) => {
-      const newTopics = [...prev];
-      newTopics[index] = { id: topicId, name: topicName };
-      return newTopics;
+  const handleModalClose = () => {
+    setShowModal(false);
+    setFormData({
+      vaultName: "",
+      players: "2",
+      vaultValue: "",
+      duration: "",
     });
+    setFormOutput("");
   };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Selected topics:", selectedTopics);
-    navigate("/join-friends");
+    setIsLoading(true);
+    try {
+      const contract = await getContract();
+      if (!contract) return;
+      const vaultHash = await contract.startGameAdmin.staticCall(
+        formData.vaultName,
+        parseInt(formData.players),
+        parseInt(formData.duration),
+        parseInt(formData.vaultValue)
+      );
+      console.log("Vault Hash: ", vaultHash);
+      setFormOutput(vaultHash);
+      const tx = await contract.startGameAdmin(
+        formData.vaultName,
+        parseInt(formData.players),
+        parseInt(formData.duration),
+        parseInt(formData.vaultValue)
+      );
+      const receipt = await tx.wait();
+      setShowModal(true);
+      console.log("Transaction Receipt: ", receipt);
+    } catch (error) {
+      console.error("Error starting game:", error);
+      alert("Transaction failed!");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -59,7 +62,7 @@ export const StartTrickGame: React.FC<StartTrickGameProps> = ({ options }) => {
       <div className="min-h-screen flex bg-[#121212]">
         <motion.div
           initial={{ x: 0 }}
-          animate={{ x: -100 }}
+          animate={{ x: 430 }}
           className="w-1/2 flex items-center justify-center p-6"
         >
           <div className="w-full max-w-md">
@@ -83,66 +86,6 @@ export const StartTrickGame: React.FC<StartTrickGameProps> = ({ options }) => {
                     placeholder="Enter Vault Name"
                     required
                   />
-                </div>
-
-                <div className="space-y-4">
-                  <TopicSelection
-                    selectedTopicId={selectedTopics[0].id}
-                    options={options}
-                    onTopicSelect={(topicId, topicName) => {
-                      updateTopicSelection(0, topicId, topicName);
-                    }}
-                    onSubmit={handleTopicSelection}
-                  />
-
-                  <div className="flex items-center justify-between py-2">
-                    <label className="text-sm font-medium text-[#9ef01a]">
-                      More topics
-                    </label>
-                    <button
-                      type="button"
-                      role="switch"
-                      aria-checked={showExtraSelections}
-                      onClick={() =>
-                        setShowExtraSelections(!showExtraSelections)
-                      }
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1a1a1a] ${
-                        showExtraSelections ? "bg-[#9ef01a]" : "bg-red-500"
-                      }`}
-                    >
-                      <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                          showExtraSelections
-                            ? "translate-x-6"
-                            : "translate-x-1"
-                        }`}
-                      />
-                      <span className="sr-only">
-                        {showExtraSelections ? "Yes" : "No"}
-                      </span>
-                    </button>
-                  </div>
-
-                  {showExtraSelections && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="space-y-4"
-                    >
-                      {[1, 2, 3].map((index) => (
-                        <TopicSelection
-                          key={index}
-                          selectedTopicId={selectedTopics[index].id}
-                          options={options}
-                          onTopicSelect={(topicId, topicName) => {
-                            updateTopicSelection(index, topicId, topicName);
-                          }}
-                          onSubmit={handleTopicSelection}
-                        />
-                      ))}
-                    </motion.div>
-                  )}
                 </div>
 
                 <div>
@@ -180,7 +123,21 @@ export const StartTrickGame: React.FC<StartTrickGameProps> = ({ options }) => {
                     required
                   />
                 </div>
-
+                <div>
+                  <label className="block text-sm font-medium text-[#9ef01a] mb-2">
+                    Duration
+                  </label>
+                  <input
+                    type="number"
+                    value={formData.duration}
+                    onChange={(e) =>
+                      setFormData({ ...formData, duration: e.target.value })
+                    }
+                    className="w-full bg-[#232323] border border-[#9ef01a] rounded-lg px-4 py-2 text-[#9ef01a] placeholder-[#9ef01a]/50 focus:outline-none focus:ring-2 focus:ring-[#9ef01a]/50"
+                    placeholder="Enter Call-off Duration"
+                    required
+                  />
+                </div>
                 <button
                   type="submit"
                   className="w-full bg-[#9ef01a] hover:bg-[#8bd919] text-black font-medium py-3 rounded-lg flex items-center justify-center gap-2 mt-8 transition-colors duration-200"
@@ -189,16 +146,14 @@ export const StartTrickGame: React.FC<StartTrickGameProps> = ({ options }) => {
                   Start Game
                 </button>
               </form>
+              <Loading isLoading={isLoading} />
+              <VaultHashModal
+                isOpen={showModal}
+                onClose={handleModalClose}
+                output={formOutput || ""}
+              />
             </div>
           </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="w-1/2 fixed right-0 top-0 bottom-0"
-        >
-          <TopicMap topics={selectedTopics} />
         </motion.div>
       </div>
     </PageTransition>

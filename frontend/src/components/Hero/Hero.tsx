@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AlloraTopic } from "../../utils/alloraTopics";
 import { EIP6963ProviderDetail } from "../../types/wallet";
 import { Loading } from "../Loading/Loading";
-import { Modal } from "../Modal/Modal";
+import { Modal } from "../Modal/PredictionModal";
 import { WalletConnect } from "../WalletConnect/WalletConnect";
 import { TopicSelection } from "../TopicSelection/TopicSelection";
 import { useSyncProviders } from "../../hooks/useSyncProviders";

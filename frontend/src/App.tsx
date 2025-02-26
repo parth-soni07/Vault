@@ -15,7 +15,6 @@ import { Contact } from './pages/Contact';
 import { Success } from './pages/Success';
 import { results } from './utils/alloraTopics';
 import './styles/globals.css';
-
 function App() {
   const [selected, setSelected] = useState('Option 1');
 
@@ -41,9 +40,9 @@ function App() {
             <Route path="/select-vault" element={<VaultSelection />} />
             <Route
               path="/start-trick-game"
-              element={<StartTrickGame options={results} />}
+              element={<StartTrickGame/>}
             />
-            <Route path="/join-friends" element={<JoinFriends />} />
+            <Route path="/join-friends" element={<JoinFriends options={results} />} />
             <Route path="/open-vault" element={<OpenVault />} />
             <Route path="/store-vault" element={<StoreVault />} />
             <Route path="/open-store-vault" element={<OpenStoreVault />} />
