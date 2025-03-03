@@ -28,7 +28,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                  hover:bg-gray-800/50 transition-all duration-300 focus:outline-none
                  shadow-[0_0_15px_rgba(163,255,71,0.1)] hover:shadow-[0_0_25px_rgba(163,255,71,0.2)]"
       >
-        {selectedTopic ? selectedTopic.topic_name : "Select a Topic"}
+        {selectedTopic ? selectedTopic.topic_name : "Choose Market"}
         <ChevronDown
           className={`transform transition-transform duration-300 ${
             isOpen ? "rotate-180" : ""

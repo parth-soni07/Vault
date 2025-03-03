@@ -1,220 +1,104 @@
 export interface AlloraTopic {
   topic_id: number;
   topic_name: string;
-  description: string | null;
-  epoch_length: number;
-  ground_truth_lag: number;
-  loss_method: string;
-  worker_submission_window: number;
-  worker_count: number;
-  reputer_count: number;
-  total_staked_allo: number;
-  total_emissions_allo: number;
-  is_active: boolean;
-  updated_at: string;
 }
-
 export const results: AlloraTopic[] = [
   {
-    topic_id: 14,
-    topic_name: "BTC 5min Prediction",
-    description: null,
-    epoch_length: 60,
-    ground_truth_lag: 60,
-    loss_method: "mse",
-    worker_submission_window: 12,
-    worker_count: 19432,
-    reputer_count: 7,
-    total_staked_allo: 0.0100000000007,
-    total_emissions_allo: 7.163065407320967,
-    is_active: true,
-    updated_at: "2025-02-18T11:12:50.884Z",
+    topic_id: 40,
+    topic_name: "SOL/USD - 8h Volatility Prediction",
   },
   {
-    topic_id: 13,
-    topic_name: "ETH 5min Prediction",
-    description: null,
-    epoch_length: 60,
-    ground_truth_lag: 60,
-    loss_method: "mse",
-    worker_submission_window: 12,
-    worker_count: 20502,
-    reputer_count: 8,
-    total_staked_allo: 0.030000000101000006,
-    total_emissions_allo: 7.746649865110074,
-    is_active: true,
-    updated_at: "2025-02-18T11:12:50.884Z",
+    topic_id: 43,
+    topic_name: "ETH/USD - 8h Volatility Prediction",
   },
   {
-    topic_id: 16,
-    topic_name: "BTC 5min Volatility Prediction",
-    description: null,
-    epoch_length: 60,
-    ground_truth_lag: 60,
-    loss_method: "mse",
-    worker_submission_window: 12,
-    worker_count: 522,
-    reputer_count: 6,
-    total_staked_allo: 0.0100000000007,
-    total_emissions_allo: 0.13693451610401086,
-    is_active: true,
-    updated_at: "2025-02-18T11:12:50.884Z",
-  },
-  {
-    topic_id: 5,
-    topic_name: "SOL 10min Prediction",
-    description: null,
-    epoch_length: 120,
-    ground_truth_lag: 120,
-    loss_method: "mse",
-    worker_submission_window: 12,
-    worker_count: 26866,
-    reputer_count: 2735,
-    total_staked_allo: 1.0200000004892,
-    total_emissions_allo: 19.197835943488787,
-    is_active: true,
-    updated_at: "2025-02-18T11:07:50.884Z",
-  },
-  {
-    topic_id: 3,
-    topic_name: "BTC 10min Prediction",
-    description: null,
-    epoch_length: 120,
-    ground_truth_lag: 120,
-    loss_method: "mse",
-    worker_submission_window: 12,
-    worker_count: 32595,
-    reputer_count: 3168,
-    total_staked_allo: 7.771635926543702,
-    total_emissions_allo: 5.0817491131634975,
-    is_active: true,
-    updated_at: "2025-02-18T11:07:50.884Z",
-  },
-  {
-    topic_id: 1,
-    topic_name: "ETH 10min Prediction",
-    description: null,
-    epoch_length: 120,
-    ground_truth_lag: 120,
-    loss_method: "mse",
-    worker_submission_window: 12,
-    worker_count: 34967,
-    reputer_count: 3348,
-    total_staked_allo: 9.232453018609537,
-    total_emissions_allo: 22.26685051990994,
-    is_active: true,
-    updated_at: "2025-02-18T11:07:50.884Z",
+    topic_id: 44,
+    topic_name: "BTC/USD - 8h Volatility Prediction",
   },
   {
     topic_id: 19,
     topic_name: "ETH 8h Volatility Prediction",
-    description: null,
-    epoch_length: 5760,
-    ground_truth_lag: 5760,
-    loss_method: "mse",
-    worker_submission_window: 576,
-    worker_count: 0,
-    reputer_count: 6,
-    total_staked_allo: 8e-13,
-    total_emissions_allo: 0.027506490512621586,
-    is_active: true,
-    updated_at: "2025-02-18T03:17:50.884Z",
   },
   {
     topic_id: 20,
     topic_name: "BTC 8h Volatility Prediction",
-    description: null,
-    epoch_length: 5760,
-    ground_truth_lag: 5760,
-    loss_method: "mse",
-    worker_submission_window: 576,
-    worker_count: 0,
-    reputer_count: 5,
-    total_staked_allo: 8e-13,
-    total_emissions_allo: 0.010211765219479196,
-    is_active: true,
-    updated_at: "2025-02-18T03:17:50.884Z",
+  },
+  {
+    topic_id: 46,
+    topic_name: "ETH/USDC - 6h Price Prediction",
+  },
+  {
+    topic_id: 36,
+    topic_name: "Sekoia/USDT - 8h Price Prediction",
+  },
+  {
+    topic_id: 38,
+    topic_name: "SOL/USD - 8h Price Prediction",
+  },
+  {
+    topic_id: 41,
+    topic_name: "ETH/USD - 8h Price Prediction",
+  },
+  {
+    topic_id: 42,
+    topic_name: "BTC/USD - 8h Price Prediction",
+  },
+  {
+    topic_id: 3,
+    topic_name: "BTC 10min Prediction",
+  },
+  {
+    topic_id: 14,
+    topic_name: "BTC 5min Prediction",
+  },
+  {
+    topic_id: 1,
+    topic_name: "ETH 10min Prediction",
   },
   {
     topic_id: 21,
     topic_name: "ETH 8h Prediction",
-    description: null,
-    epoch_length: 5760,
-    ground_truth_lag: 5760,
-    loss_method: "mse",
-    worker_submission_window: 576,
-    worker_count: 0,
-    reputer_count: 0,
-    total_staked_allo: 0.0,
-    total_emissions_allo: 0.0,
-    is_active: false,
-    updated_at: "2025-02-18T03:17:50.884Z",
   },
   {
-    topic_id: 6,
-    topic_name: "SOL 24h Prediction",
-    description: null,
-    epoch_length: 17280,
-    ground_truth_lag: 17280,
-    loss_method: "mse",
-    worker_submission_window: 60,
-    worker_count: 933,
-    reputer_count: 417,
-    total_staked_allo: 3.111537814736678,
-    total_emissions_allo: 21.412695270250822,
-    is_active: true,
-    updated_at: "2025-02-17T11:17:50.884Z",
-  },
-  {
-    topic_id: 2,
-    topic_name: "ETH 24h Prediction",
-    description: null,
-    epoch_length: 17280,
-    ground_truth_lag: 17280,
-    loss_method: "mse",
-    worker_submission_window: 60,
-    worker_count: 933,
-    reputer_count: 2861,
-    total_staked_allo: 6.100419575798528,
-    total_emissions_allo: 7.12092424399734,
-    is_active: true,
-    updated_at: "2025-02-17T11:17:50.884Z",
-  },
-  {
-    topic_id: 4,
-    topic_name: "BTC 24h Prediction",
-    description: null,
-    epoch_length: 17280,
-    ground_truth_lag: 17280,
-    loss_method: "mse",
-    worker_submission_window: 60,
-    worker_count: 978,
-    reputer_count: 419,
-    total_staked_allo: 2.516207657119109,
-    total_emissions_allo: 7.642879975603702,
-    is_active: true,
-    updated_at: "2025-02-17T11:17:50.884Z",
-  },
-  {
-    topic_id: 12,
-    topic_name: "ETH prediction in 24h",
-    description: null,
-    epoch_length: 86400,
-    ground_truth_lag: 86400,
-    loss_method: "mse",
-    worker_submission_window: 60,
-    worker_count: 0,
-    reputer_count: 0,
-    total_staked_allo: 0.0,
-    total_emissions_allo: 0.0,
-    is_active: false,
-    updated_at: "2025-02-13T11:17:50.884Z",
+    topic_id: 13,
+    topic_name: "ETH 5min Prediction",
   },
 ];
 
-// Convert the array into an object for easy lookup by topic_name
-const topicMap: Record<string, AlloraTopic> = results.reduce((acc, topic) => {
-  acc[topic.topic_name] = topic;
-  return acc;
-}, {} as Record<string, AlloraTopic>);
+export const lowRisk: AlloraTopic[] = [
+  {
+    topic_id: 2,
+    topic_name: "ETH 24h",
+  },
+  {
+    topic_id: 4,
+    topic_name: "BTC 24h",
+  },
+];
+
+export const moderateRisk: AlloraTopic[] = [
+  {
+    topic_id: 6,
+    topic_name: "SOL 24h",
+  },
+];
+
+export const highRisk: AlloraTopic[] = [
+  {
+    topic_id: 31,
+    topic_name: "Virtual/USDT - 8h",
+  },
+  {
+    topic_id: 33,
+    topic_name: "Luna/USDT - 8h",
+  },
+  {
+    topic_id: 34,
+    topic_name: "VaderAI/USDT - 8h",
+  },
+  {
+    topic_id: 35,
+    topic_name: "Game/USDT - 8h",
+  },
+];
 
