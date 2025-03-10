@@ -5,7 +5,7 @@ declare global {
     ethereum?: any;
   }
 }
-const CONTRACT_ADDRESS = "0x00935d4ba53e35e35c976A19967D963f9061F3c7";
+const CONTRACT_ADDRESS = "0xD8719Bc017ac8084409CB91182d56F79e69e4266";
 export const getContract = async (): Promise<Contract | null> => {
   if (!window.ethereum) {
     alert("MetaMask not detected. Please install it.");

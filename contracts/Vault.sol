@@ -10,13 +10,14 @@ contract Vault {
         uint8 players;
         bool isActive;
         uint8 vaultValue; // Required amount to join (in wei)
-        uint8 activeDuration;
+        uint8 activeDuration; // Time in seconds
         uint256 startTime;
         bytes32 vaultHash;
     }
 
     mapping(bytes32 => GambleVault) public vaults; // Maps vaultHash → GambleVault
     mapping(bytes32 => address[]) public vaultPlayers; // Tracks players in each vault
+    mapping(bytes32 => mapping(address => uint256[3])) public playerValues; // Stores player-specific values
     uint8 public vaultId = 1;
 
     event VaultCreated(bytes32 vaultHash, address indexed admin);
@@ -40,8 +41,6 @@ contract Vault {
         bytes32 _hash = keccak256(
             abi.encodePacked(_vaultName, msg.sender)
         );
-        
-
         // Store vault in mapping
         vaults[_hash] = GambleVault({
             vaultAdmin: msg.sender,
@@ -60,10 +59,11 @@ contract Vault {
         vaultId++;
         return _hash;
     }
-    function getHash (string memory _vaultName) public view returns (bytes32){
-        
-    }
-    function joinVault(bytes32 _hash) public payable {
+    
+    function joinVault(
+        bytes32 _hash,
+        uint256[3] memory _values
+    ) public payable {
         GambleVault storage vault = vaults[_hash];
         require(vault.vaultHash == _hash, "Invalid Hash");
         require(vault.isActive, "Vault is no more active");
@@ -73,9 +73,13 @@ contract Vault {
         );
 
         vaultPlayers[_hash].push(msg.sender);
-        if (getVaultPlayers(_hash).length == vault.players) {
+        require(vaultPlayers[_hash].length <= vault.players, "Vault player limit exceeded");
+
+        playerValues[_hash][msg.sender] = _values;
+
+        if (vaultPlayers[_hash].length == vault.players) {
             vault.isActive = false;
-            vault.startTime = block.timestamp;
+            vault.startTime = block.timestamp; // Timer starts when vault is full
         }
         emit PlayerJoined(_hash, msg.sender, msg.value);
     }
@@ -83,9 +87,9 @@ contract Vault {
     function openVault(bytes32 _hash) public {
         GambleVault storage vault = vaults[_hash];
         require(!vault.isActive, "Vault is still active");
+        require(vault.vaultAdmin == msg.sender, "Only the Admin Can Open The vault");
         require(
-            block.timestamp >=
-                vault.startTime + (vault.activeDuration * 1 minutes),
+            block.timestamp >= vault.startTime + vault.activeDuration,
             "Vault duration has not ended"
         );
 

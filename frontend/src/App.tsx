@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 // INTERNAL IMPORTS
 import { AnimatePresence } from "framer-motion";
 import { VaultSelection } from "./pages/VaultSelection";
 import { StartTrickGame } from "./pages/StartTrickGame";
-import { JoinFriends } from "./pages/JoinFriends";
+import { JoinFriends } from "./pages/JoinFriends/JoinFriends";
 import { OpenVault } from "./pages/OpenVault";
 import { StoreVault } from "./pages/StoreVault";
 import { OpenStoreVault } from "./pages/OpenStoreVault";
-import { Navbar } from './components/Navbar/Navbar';
-import { Home } from './pages/Home';
-import { About } from './pages/About';
-import { Contact } from './pages/Contact';
-import { Success } from './pages/Success';
-import { results, lowRisk, moderateRisk, highRisk } from './utils/alloraTopics';
-import './styles/globals.css';
+import { Navbar } from "./components/Navbar/Navbar";
+import { Home } from "./pages/Home";
+import { About } from "./pages/About";
+import { Contact } from "./pages/Contact";
+import { Success } from "./pages/Success";
+import { results, lowRisk, moderateRisk, highRisk } from "./utils/alloraTopics";
+import "./styles/globals.css";
 function App() {
-  const [selected, setSelected] = useState('Option 1');
+  const [selected, setSelected] = useState("Option 1");
   const [riskLevel, setRiskLevel] = useState("Low");
 
   // Determine which array to use based on risk level
