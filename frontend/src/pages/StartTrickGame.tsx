@@ -185,7 +185,7 @@ export const StartTrickGame: React.FC = () => {
                       className="w-full bg-[#232323] border border-[#9ef01a] rounded-lg px-4 py-2 text-[#9ef01a] focus:outline-none focus:ring-2 focus:ring-[#9ef01a]/50"
                     >
                       {formDuration.unit === "days" &&
-                        [2, 3, 4, 5, 6].map((num) => (
+                        [1, 3, 4, 5, 6].map((num) => (
                           <option key={num} value={num}>
                             {num} Days
                           </option>

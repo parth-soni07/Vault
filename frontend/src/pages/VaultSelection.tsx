@@ -9,7 +9,7 @@ export const VaultSelection: React.FC = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
+      <div className="min-h-screen grid grid-cols-1">
         {/* Trick Game Section */}
         <section
           className="relative p-8 flex flex-col items-center justify-center"
@@ -31,6 +31,8 @@ export const VaultSelection: React.FC = () => {
             >
               <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
                 Trick Game
+                <br />
+                (Zerepy & Allora)
               </h1>
 
               <div className="space-y-4">
@@ -56,50 +58,6 @@ export const VaultSelection: React.FC = () => {
                 >
                   <Lock className="w-5 h-5" />
                   Open Vault
-                </button>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Store Vault Section */}
-        <section
-          className="relative p-8 flex flex-col items-center justify-center"
-          style={{
-            backgroundImage:
-              "url(https://images.unsplash.com/photo-1618044733300-9472054094ee?auto=format&fit=crop&q=80)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className="absolute inset-0 bg-vault-dark/80 backdrop-blur-sm" />
-
-          <div className="relative z-10 max-w-md w-full space-y-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-center"
-            >
-              <h1 className="font-serif text-4xl font-bold mb-6 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                Store Vault
-              </h1>
-
-              <div className="space-y-4">
-                <button
-                  onClick={() => navigate("/store-vault")}
-                  className="btn-primary w-full flex items-center justify-center gap-2"
-                >
-                  <Store className="w-5 h-5" />
-                  Enter Store Vault
-                </button>
-
-                <button
-                  onClick={() => navigate("/open-store-vault")}
-                  className="btn-primary w-full flex items-center justify-center gap-2"
-                >
-                  <Key className="w-5 h-5" />
-                  Open Store Vault
                 </button>
               </div>
             </motion.div>
